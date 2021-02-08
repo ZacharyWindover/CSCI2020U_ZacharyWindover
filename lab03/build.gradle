@@ -1,0 +1,16 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+application {
+	mainClassName = 'C/UBUNTU/Year_2/CSCI2020U/lab03/build'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.apache.commons:commons-csv:1.8'
+	testImplementation 'junit:junit:4.12'
+}
+
