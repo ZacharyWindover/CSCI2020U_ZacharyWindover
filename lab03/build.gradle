@@ -1,9 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'application'
 
-application {
-	mainClassName = 'C/UBUNTU/Year_2/CSCI2020U/lab03/build'
-}
+mainClassName = 'CSCI2020U.lab03.CSVDemo'
 
 repositories {
 	mavenCentral()

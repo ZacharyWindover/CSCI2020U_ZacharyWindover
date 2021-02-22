@@ -1,0 +1,10 @@
+#Ignore files with these extensions
+*.dmg
+*.gz
+*.class
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
