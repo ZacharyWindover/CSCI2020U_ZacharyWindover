@@ -1,0 +1,44 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<?import javafx.scene.control.TextField?>
+<GridPane fx:controller="Lab05.Controller"
+          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+
+    <TableView fx:id="tableView" GridPane.columnIndex="0" GridPane.rowIndex="0">
+        <columns>
+            <TableColumn fx:id="studentNumberColumn" text="Student Number"></TableColumn>
+            <TableColumn fx:id="assignmentsColumn" text="Assignments"></TableColumn>
+            <TableColumn fx:id="midtermExamColumn" text="Midterm Exam"></TableColumn>
+            <TableColumn fx:id="finalExamColumn" text="Final Exam"></TableColumn>
+            <TableColumn fx:id="finalMarkColumn" text="Final Mark"></TableColumn>
+            <TableColumn fx:id="letterGradeColumn" text="Letter Grade"></TableColumn>
+
+        </columns>
+
+    </TableView>
+
+    <!--
+
+    <Label text="Student Number: " GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <TextField id="studentNumberField" promptText="##########" fx:id="studentNumberField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+    <Label text="Assignments: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <TextField id="assignmentsField" promptText="Assignments / 100" fx:id="assignmentsField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+
+    <Label text="Midterm: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
+    <TextField id="midtermExamField" promptText="Midterm / 100" fx:id="midtermExamField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+
+    <Label text="Final Exam: " GridPane.columnIndex="0" GridPane.rowIndex="4" />
+    <TextField id="finalExamField" promptText="Final Exam / 100" fx:id="finalExamField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+    <Button id="addButton" fx:id="addButton" onAction="#buttonOnPress" text="Add" GridPane.columnIndex="0" GridPane.rowIndex="7" />
+
+    -->
+
+</GridPane>
