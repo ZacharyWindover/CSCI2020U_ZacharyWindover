@@ -110,10 +110,16 @@ public class SpamFilter {
 
             File file = files[x];                                                                   // File is the xth file in the files array
 
+            DecimalFormat df = new DecimalFormat("###.###########");
+
+
             float eta = 0.00000000f;                                                                // setting beginning value of eta
             float e = (float) Math.E;                                                               // setting value of e
             float PrSF = 0.00000000f;                                                               // setting beginning value of PrSF
             int wordCount = 0;                                                                      // setting beginning value of wordCount
+
+            df.format(eta);
+            df.format(PrSF);
 
             /*
              * To calculate eta:
@@ -137,11 +143,15 @@ public class SpamFilter {
 
                         if (PrSW.get(token) == 1) {                                                 // if the value is 1
 
-                            float value = 0.99999999f;                                              // make value to 0.99999 so it doesn't return an error for log()
+                            float value = 0.99999999999f;                                              // make value to 0.99999 so it doesn't return an error for log()
 
-                            float partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of the eta formula
+                            float partOne = 0.00000000000f;
+                            df.format(partOne);
+                            partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of the eta formula
 
-                            float partTwo = (float)java.lang.Math.log(value);                       // calculate part two of the eta formula
+                            float partTwo = 0.00000000000f;
+                            df.format(partTwo);
+                            partTwo = (float)java.lang.Math.log(value);                       // calculate part two of the eta formula
 
                             eta = eta + (partOne - partTwo);                                        // calculate eta
 
@@ -149,11 +159,15 @@ public class SpamFilter {
 
                         else if (PrSW.get(token) == 0) {                                            // if the value in PrSW is 0
 
-                            float value = 0.00000001f;                                              // make value to 0.00001 so it doesn't return an error for log()
+                            float value = 0.00000000001f;                                              // make value to 0.00001 so it doesn't return an error for log()
 
-                            float partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of eta formula
+                            float partOne = 0.00000000000f;
+                            df.format(partOne);
+                            partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of the eta formula
 
-                            float partTwo = (float)java.lang.Math.log(value);                       // calculate part two of eta formula
+                            float partTwo = 0.00000000000f;
+                            df.format(partTwo);
+                            partTwo = (float)java.lang.Math.log(value);                       // calculate part two of the eta formula
 
                             eta = eta + (partOne - partTwo);                                        // calculate eta
 
@@ -164,9 +178,13 @@ public class SpamFilter {
 
                             float value = PrSW.get(token);                                          // get the token value
 
-                            float partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of eta formula
+                            float partOne = 0.00000000000f;
+                            df.format(partOne);
+                            partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of the eta formula
 
-                            float partTwo = (float)java.lang.Math.log(value);                       // calculate part two of eta formula
+                            float partTwo = 0.00000000000f;
+                            df.format(partTwo);
+                            partTwo = (float)java.lang.Math.log(value);                       // calculate part two of the eta formula
 
                             eta = eta + ( partOne - partTwo );                                      // calculate eta
 
@@ -177,11 +195,15 @@ public class SpamFilter {
                     // if the word isn't in the map it is calculated as a 50/50
                     else {
 
-                        float value = 0.50000f;                                                     // assign value as 0.50000 because it could be spam
+                        float value = 0.50000000f;                                                     // assign value as 0.50000 because it could be spam
 
-                        float partOne = ((float)java.lang.Math.log(1 - value));                     // calculate part one of eta formula
+                        float partOne = 0.00000000000f;
+                        df.format(partOne);
+                        partOne = (float)java.lang.Math.log(1 - value);                   // calculate part one of the eta formula
 
-                        float partTwo = ((float)java.lang.Math.log(value));                         // calculate part two of eta formula
+                        float partTwo = 0.00000000000f;
+                        df.format(partTwo);
+                        partTwo = (float)java.lang.Math.log(value);                       // calculate part two of the eta formula
 
                         eta = eta + (partOne - partTwo);                                            // calculate eta
 
@@ -191,11 +213,52 @@ public class SpamFilter {
 
             }
 
-            float en = (float)(java.lang.Math.pow(e, eta));
+            // this is a formula I discovered using desmos:
+            // PrSF = 1 / 1 + e^s
+            // where s = eta / t
+            // where t = number of words / 7.6
+            // and eta is just eta
+            // I found 7.6 from graphing different points where the original formula (PrSF = 1 / 1 + e^x) rounded up to 1
+            // and so i got
+            /*
+                    when does  x = 1	| 	for x / N, n = 	| difference
+                    -7.61				|			1		|		7.6
+                    -15.21				|			2		| 		7.6
+                    -22.81				|			3		| 		7.6
+                    -30.41				| 			4		| 		7.6e
+                    -38.01				|			5		| 		7.6
 
-            PrSF = 1 / (1 + en);
+                so when there are approx 250 words for example, the value would be 32.895,
+                and so eta would be divided by 32.895, and if it it was fully spam (value of 250)
+                then the value, when divided by 32.895, would be 1, so 1 / 1 + e^1 would be 100%
 
-            PrSF = (float)(PrSF * 100.0000f);                                                       // multiply by 100 for percent
+                another example is so when there are approx 288.876 words, the value would be 38.01 (288.876 / 7.6)
+                and so eta would be divided by 38.01, and so on and so forth.
+
+                sorry for a poor explanation, this formula came from trial and error of where to place t
+                after noticing the rounded to 1 pattern as the amount of words grew
+             */
+
+            // I wanted to use this to space out how fast everything rounded to 0.0 or 1.0
+            // Because it doesn't collect more data or use any different formulas, it isn't more or less acurrate
+            // in providing if the file is spam or not
+            // but it is able to provide a better probability of if the file is spam or not
+
+            float t = 0.00000000000f;
+            df.format(t);
+            t = (wordCount / 7.60000000f);
+
+            float s = 0.00000000000f;
+            df.format(s);
+            s = eta / t;
+
+            PrSF = (float)(1 / (1 + java.lang.Math.pow(e, s)));
+
+            //float en = (float)(java.lang.Math.pow(e, eta));
+
+            //PrSF = 1 / (1 + en);
+
+            PrSF = (PrSF * 100.00000000f);                                                       // multiply by 100 for percent
 
             if (isNaN(PrSF)) {                                                                      // if the number is NaN, make it 50% possible to be spam
                 PrSF = 50.00000f;                                                                   // (just a fail safe for NaN values)
