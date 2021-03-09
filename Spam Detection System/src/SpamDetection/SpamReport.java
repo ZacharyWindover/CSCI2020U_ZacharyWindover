@@ -23,7 +23,5 @@ public class SpamReport {
     public String getActualClass() { return this.actualClass; }
     public String getSpamProbability() { return this.spamProbability; }
     public String getClassGuess() { return this.classGuess; }
-
-
-
+    
 }
