@@ -62,6 +62,8 @@ a. Project Information:
   
   Unfortunately I was not able to improve the interface or accuracy more, and I was not able to make the email sample data choosable with DirectoryChooser due to time              contraints.
   
+  I also wanted to make detected spam files contain red text or the cells be highlighted in red, while cells detected as ham be highlighted in green, however due to time           contraints that did not happen.
+  
   One thing to note is that all maps are saved for easy reference, and an output is printed saying where it was saved, which is in the project folder.
   Along with that, the statistics to calculate accuracy and precision (numFiles, numTruePositives, numTrueNegatives, numFalsePositives) along with the accuracy and precision,      are given as output. This was originally just for testing but I like it because it shows how many files it got right, how many got wrong, and how many there were in total,      just some interesting little outputs.
   
