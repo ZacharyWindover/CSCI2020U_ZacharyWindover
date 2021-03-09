@@ -202,7 +202,7 @@ public class WordTracker {
 
         for (Map.Entry<String, Integer> entry: wordTracker.entrySet()) {
 
-            float probability = 0.00000f; 							// set initial value of probability
+            float probability = 0.00000000f; 							// set initial value of probability
 
             String key = entry.getKey();							// get current set key
             int value = entry.getValue();							// get current set value
@@ -224,7 +224,7 @@ public class WordTracker {
 
             String word = entry.getKey();							// variable to store key
             float WS = entry.getValue();							// variable to store value
-            float WH = 0.00000f;										// variable, stores initial PrWH value,
+            float WH = 0.00000000f;										// variable, stores initial PrWH value,
             // assigned as 0.0000f because if the PrWS word isn't in PrWH,
             // then that would be the right number to put, to get the probability of that word only being in spam emails
 
@@ -244,7 +244,7 @@ public class WordTracker {
 
             if (!PrSW.containsKey(word)) {							// if the word isn't already in PrSW (
                 // it is missing from the dictionary because it wasn't in PrWS so it was skipped)
-                float SW = 0.00000f;								// if it wasn't in spam then its percent of being spam is zero
+                float SW = 0.00000000f;								// if it wasn't in spam then its percent of being spam is zero
                 PrSW.put(word, SW);									// adding word to dictionary
             }
 
@@ -318,6 +318,5 @@ public class WordTracker {
         }
 
     }
-
 
 }
