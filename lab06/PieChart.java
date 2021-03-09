@@ -15,94 +15,87 @@ public class PieChart {
         this.gc = gc;
     }
 
-    public static int getTotal(int[] purchasesByAgeGroup) {
-
-        int datasetLength = purchasesByAgeGroup.length;
+    public static int getTotal(int[] dataset) {
 
         int total = 0;
 
-        for (int a = 0; a < datasetLength; a++) {
-            total = purchasesByAgeGroup[a] + total;
-            System.out.println("total: " + total);
+        for (int value : dataset) {
+            total = total + value;
         }
-
-        System.out.println("total: " + total);
 
         return total;
 
     }
 
-    public static float[] getPercentages(int total, int[] purchasesByAgeGroup) {
 
-        int datasetLength = purchasesByAgeGroup.length;
-        float[] percentages = new float[datasetLength];
+    public static double getX(int w) { return w + w/4; }
+    public static double getY(int h) { return h/3; }
 
-        for (int a = 0; a < datasetLength; a++) {
-            percentages[a] = ((float) purchasesByAgeGroup[a] / (float) total) * 100;
-            System.out.println("percentages[a]: " + percentages[a]);
-            System.out.println("purchasesByAgeGroup: " + purchasesByAgeGroup[a]);
+    public static double getWidth(int w) { return ((w - 100) / 1.75); }
+    public static double getHeight(int w) { return ((w - 100) / 1.75); }
+
+    public static float[] getDegrees(int[] dataset, int total) {
+        float[] degrees = new float[dataset.length];
+
+        for (int x = 0; x < dataset.length; x++) {
+            degrees[x] = (float)dataset[x] / total * 360;
+            System.out.println("Dataset[x]: " + dataset[x]);
+            System.out.println("total: " + total);
+            System.out.println("Degrees: " + degrees[x]);
         }
 
-        System.out.println("total: " + total);
-
-        return percentages;
+        return degrees;
 
     }
 
-    public static float[] getArcExtents(float[] percentages) {
-        int datasetLength = percentages.length;
-        float[] arcExtents = new float[datasetLength];
+    public static float[] getStartAngles(float[] degrees) {
 
-        for (int a = 0; a < datasetLength; a++) {
-            arcExtents[a] = percentages[a] * 360;
+        float[] startAngles = new float[degrees.length];
+
+        startAngles[0] = 0.000f;
+        //double endAngle = degrees[0];
+
+        for (int x = 1; x < degrees.length; x++) {
+            startAngles[x] = startAngles[x-1] + degrees[x-1];
+            System.out.println("Start Angle: " + startAngles[x]);
+        }
+
+        return startAngles;
+
+    }
+
+    public static float[] getArcExtents(float[] degrees, float[] startAngles) {
+
+        float[] arcExtents = new float[degrees.length];
+
+        for (int x = 0; x < degrees.length; x++) {
+            float endAngle = startAngles[x] + degrees[x];
+            arcExtents[x] = endAngle - startAngles[x];
+            System.out.println("Arc Extents: "  + arcExtents[x]);
         }
 
         return arcExtents;
 
     }
+    
+    public void drawNewPieChart(int w, int h, int[] dataset, Color[] colours){
+        int total = getTotal(dataset);
 
-    public void drawNewPieChart(int w, int h, String[] ageGroups, int[] purchasesByAgeGroup, Color[] pieColours) {
+        double x = getX(w);
+        double y = getY(h);
 
-        int datasetLength = purchasesByAgeGroup.length;
-        int total = getTotal(purchasesByAgeGroup);
-        System.out.println("total: " + total);
+        double width = getWidth(w);
+        double height = getHeight(w);
 
-        float[] percentages = getPercentages(total, purchasesByAgeGroup);
-        float[] arcExtents = getArcExtents(percentages);
+        float[] degrees = getDegrees(dataset, total);
+        float[] startAngles = getStartAngles(degrees);
+        float[] arcExtents = getArcExtents(degrees, startAngles);
 
-
-        double x = w + (w/4);
-        double y = h/4;
-
-        double width = (w-50) / 2;
-        double height = (h-50) / 2;
-
-        double startAngle = 0.0;
-        double arcExtent = 0.0;
-
-        for (int counter = 0; counter < datasetLength; counter++) {
-
-            arcExtent = arcExtents[counter];
-
-            gc.setFill(pieColours[counter]);
-            gc.fillArc(x, y, width, height, startAngle, arcExtent, ArcType.ROUND);
-
-            System.out.println("x: " + x);
-            System.out.println("y: " + y);
-            System.out.println("width: " + width);
-            System.out.println("height: " + height);
-            System.out.println("startAngle: " + startAngle);
-            System.out.println("arcExtent: " + arcExtent);
-            System.out.println("----------------------------------------------");
-
-            startAngle = startAngle + arcExtent;
+        for (int a = 0; a < dataset.length; a++){
+            gc.setFill(colours[a]);
+            gc.fillArc(x, y, width, height, startAngles[a], arcExtents[a], ArcType.ROUND);
 
         }
-
-    //gc.fillArc(670, 360, 100.0, 100.0, 0.0, 90.0, ArcType.ROUND);
-
-
-
-
     }
+
 }
