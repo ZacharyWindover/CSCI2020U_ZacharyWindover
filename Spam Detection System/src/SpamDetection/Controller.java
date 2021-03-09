@@ -46,25 +46,23 @@ public class Controller {
         tableView.setItems(DataSource.getAllReports());
         tableView.refresh();
 
-        float accuracy = 0.00000f;
-        accuracy = (float) DataSource.getAccuracy();
-        accuracy = (float) (accuracy * 100.00000f);
+        float accuracy;
+        accuracy = DataSource.getAccuracy();
+        accuracy = accuracy * 100.00000f;
 
-        float precision = 0.00000f;
-        precision = (float) DataSource.getPrecision();
-        precision = (float) (precision * 100.00000f);
+        float precision;
+        precision = DataSource.getPrecision();
+        precision = precision * 100.00000f;
 
         System.out.println("Accuracy: " + accuracy + "%");
         System.out.println("Precision: " + precision + "%");
 
-        accuracyLabel.setText("Accuracy: " + String.valueOf(accuracy) + "%");
-        precisionLabel.setText("Precision: " + String.valueOf(precision) + "%");
+        accuracyLabel.setText("Accuracy: " + accuracy + "%");
+        precisionLabel.setText("Precision: " + precision + "%");
 
         DataSource.printStuff();
 
 
     }
-
-
-
+    
 }
