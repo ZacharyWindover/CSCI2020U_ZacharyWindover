@@ -72,3 +72,18 @@ a. Project Information:
   It is not currently a JAR file, so it cannot be run as a standalone application, although it could be. 
   
   d. other than the importable built in libraries in java (java.io, java.text, javafx.scene, javafx.collections, java.util, javafx.fxml, javafx.stage, javafx.                     javafx.application, and java.math) I don't recall using anything else. 
+  
+  
+ image 1: console output from application
+ ![image](https://user-images.githubusercontent.com/71024596/110417267-443e8e00-8063-11eb-90d3-65cd799a5deb.png)
+
+image 2: spreadsheet output from application
+![image](https://user-images.githubusercontent.com/71024596/110417363-764ff000-8063-11eb-8a9d-1695ffbdb1af.png)
+
+image 3: layout of class structure for recreation by TA, Professor, or other
+![image](https://user-images.githubusercontent.com/71024596/110417411-95e71880-8063-11eb-8930-c74dd8cbf0cb.png)
+
+image 4: project folder for file outputs and train and test data storage
+![image](https://user-images.githubusercontent.com/71024596/110417504-b9aa5e80-8063-11eb-838f-a1489eeb6422.png)
+
+
