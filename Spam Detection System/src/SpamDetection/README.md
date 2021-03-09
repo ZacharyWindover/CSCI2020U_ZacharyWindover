@@ -87,3 +87,4 @@ image 4: project folder for file outputs and train and test data storage
 ![image](https://user-images.githubusercontent.com/71024596/110417504-b9aa5e80-8063-11eb-838f-a1489eeb6422.png)
 
 
+please let me know if the images don't work for you, they appear for me, but I just want to make sure. 
