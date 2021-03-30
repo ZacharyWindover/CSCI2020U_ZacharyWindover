@@ -21,17 +21,17 @@ public class Controller {
         google.downloadStockPrices();
         float[] dataset2 = google.getClosingValuesFloats();
 
-        DoubleLineGraph stonks = new DoubleLineGraph();
-        stonks.setGraphicsContext(gc);
-        stonks.setDisplaySize(1280, 720);
-        stonks.setDatasets(dataset1, dataset2);
+        DoubleLineGraph stocks = new DoubleLineGraph();
+        stocks.setGraphicsContext(gc);
+        stocks.setDisplaySize(1280, 720);
+        stocks.setDatasets(dataset1, dataset2);
 
 
-        stonks.findMaxValue();
-        stonks.setIntervals();
-        stonks.setVerticalMultiplier();
+        stocks.findMaxValue();
+        stocks.setIntervals();
+        stocks.setVerticalMultiplier();
 
-        stonks.plotLine();
+        stocks.plotLine();
 
 
 
